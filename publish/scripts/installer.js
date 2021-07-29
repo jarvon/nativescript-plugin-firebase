@@ -345,21 +345,22 @@ function writePodFile(result) {
   try {
     fs.writeFileSync(directories.ios + '/Podfile',
 // The MLVision pod requires a minimum of iOS 9, otherwise the build will fail
-(isPresent(result.ml_kit) ? `` : `#`) + `platform :ios, '9.0'
+(isPresent(result.ml_kit) ? `` : `#`) + `platform :ios, '12.0'
 
-` + (!isSelected(result.external_push_client_only) ? `` : `#`) + `pod 'Firebase/Core', '~>6.34.0'
+` + (!isSelected(result.external_push_client_only) ? `` : `#`) + `pod 'Firebase/Core', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :tag => '8.4.0'
 
 # Analytics
 ` + (isSelected(result.analytics) || isSelected(result.crashlytics) || (!isSelected(result.external_push_client_only) && !isPresent(result.analytics)) ? `` : `#`) + `pod 'Firebase/Analytics'
 
 # Authentication
-` + (isSelected(result.authentication) || (!isSelected(result.external_push_client_only) && !isPresent(result.external_push_client_only)) ? `` : `#`) + `pod 'Firebase/Auth'
+` + (isSelected(result.authentication) || (!isSelected(result.external_push_client_only) && !isPresent(result.external_push_client_only)) ? `` : `#`) + `pod 'Firebase/Auth', :git => 'https://github.com/firebase/firebase-ios-sdk.git', :tag => '8.4.0'
 
 # Realtime DB
 ` + (isSelected(result.realtimedb) || (!isSelected(result.external_push_client_only) && !isPresent(result.realtimedb)) ? `` : `#`) + `pod 'Firebase/Database'
 
 # Cloud Firestore
-` + (isSelected(result.firestore) ? `` : `#`) + `pod 'Firebase/Firestore'
+` + (isSelected(result.firestore) ? `` : `#`) + `pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '8.4.0'
+
 
 # Remote Config
 ` + (isSelected(result.remote_config) ? `` : `#`) + `pod 'Firebase/RemoteConfig'
